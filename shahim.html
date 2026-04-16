@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE GUILD | Deep Mastery</title>
+    <style>
+        :root {
+            --gold: #d4af37;
+            --dark: #121416;
+            --slate: #1a1c1e;
+            --text: #e0e0e0;
+            --transition: all 0.4s ease;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background-color: var(--dark);
+            color: var(--text);
+            margin: 0;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* NAVIGATION */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            background: rgba(18, 20, 22, 0.95);
+            border-bottom: 1px solid var(--gold);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            color: var(--gold);
+            letter-spacing: 3px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .nav-links button {
+            background: none;
+            border: none;
+            color: #a0a0a0;
+            margin-left: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: var(--transition);
+        }
+
+        .nav-links button:hover, .nav-links button.active {
+            color: var(--gold);
+        }
+
+        /* PAGES */
+        .page {
+            display: none; /* Hidden by default */
+            padding: 60px 10%;
+            min-height: 80vh;
+            animation: fadeIn 0.8s ease;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* HOME HERO */
+        .hero {
+            text-align: center;
+            padding: 100px 0;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+
+        .hero-line {
+            width: 80px;
+            height: 2px;
+            background: var(--gold);
+            margin: 20px auto;
+        }
+
+        /* KNOWLEDGE TREE INTERACTIVE */
+        .tree-container {
+            max-width: 800px;
+            margin: 40px auto;
+            position: relative;
+        }
+
+        .node {
+            background: var(--slate);
+            border: 1px solid #333;
+            padding: 20px;
+            margin: 10px 0;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .node:hover {
+            border-color: var(--gold);
+        }
+
+        .node.locked {
+            opacity: 0.5;
+            cursor: not-allowed;
+            border-style: dashed;
+        }
+
+        .node.completed {
+            border-left: 5px solid var(--gold);
+        }
+
+        .badge {
+            font-size: 0.7rem;
+            background: var(--gold);
+            color: black;
+            padding: 2px 8px;
+            border-radius: 10px;
+            float: right;
+        }
+
+        /* FOOTER */
+        footer {
+            text-align: center;
+            padding: 40px;
+            font-size: 0.8rem;
+            color: #666;
+            border-top: 1px solid #222;
+        }
+
+        button.cta {
+            background: var(--gold);
+            color: black;
+            padding: 12px 30px;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="#" class="logo">THE GUILD</a>
+        <div class="nav-links">
+            <button onclick="showPage('home')" id="btn-home" class="active">Home</button>
+            <button onclick="showPage('tree')" id="btn-tree">Knowledge Tree</button>
+            <button onclick="showPage('about')" id="btn-about">About</button>
+        </div>
+    </nav>
+
+    <section id="home" class="page active">
+        <div class="hero">
+            <h1>Mastery Takes Time</h1>
+            <div class="hero-line"></div>
+            <p>A sanctuary for deep-analog skills and the philosophy of slow work.</p>
+            <button class="cta" onclick="showPage('tree')">Enter the Curriculum</button>
+        </div>
+    </section>
+
+    <section id="tree" class="page">
+        <h2>Timber Framing Curriculum</h2>
+        <p>You must complete the foundational science to unlock the tools.</p>
+        
+        <div class="tree-container">
+            <div class="node completed">
+                <span class="badge">COMPLETED</span>
+                <h3>Level 1: Cellular Lignins</h3>
+                <p>Understanding the molecular bond of hardwoods and moisture content.</p>
+            </div>
+
+            <div class="node" onclick="alert('Module Loading... Practice your sharpening first.')">
+                <span class="badge">IN PROGRESS</span>
+                <h3>Level 2: The Physics of the Edge</h3>
+                <p>The geometry of the 25-degree chisel bevel and microscopic burrs.</p>
+            </div>
+
+            <div class="node locked">
+                <h3>Level 3: Mortise & Tenon</h3>
+                <p>LOCKED: Requires Level 2 completion.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="page">
+        <h2>Our Philosophy</h2>
+        <p>In a world of 30-second tutorials, we choose the 30-year journey.</p>
+        <div class="hero-line" style="margin: 20px 0;"></div>
+        <p>The Guild is an anti-algorithm platform. We do not value speed. We value the "Slow Log"—a documentation of months of effort, failure, and eventual mastery.</p>
+    </section>
+
+    <footer>
+        &copy; 2026 THE GUILD &bull; THE SLOW WORK MANIFESTO
+    </footer>
+
+    <script>
+        function showPage(pageId) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+
+            // Update nav buttons
+            const buttons = document.querySelectorAll('.nav-links button');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            document.getElementById('btn-' + pageId).classList.add('active');
+
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+    </script>
+</body>
+</html>
